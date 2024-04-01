@@ -60,8 +60,9 @@ func (crypt *MessageVerifier) Verify(msg string, target interface{}) error {
 	if crypt.secureCompare(digest, crypt.DigestFor(data)) == false {
 		return invalid("bad data (compare)")
 	}
-	decodedData, err := base64.StdEncoding.DecodeString(data)
-	err = crypt.Serializer.Unserialize(string(decodedData), target)
+	decodedData, _ := base64.StdEncoding.Strict().DecodeString(data)
+  decodedString := "\"" + string(decodedData) + "\""
+	err = crypt.Serializer.Unserialize(string(decodedString), target)
 	return err
 }
 
