@@ -1,4 +1,4 @@
-module github.com/mattetti/goRailsYourself
+module github.com/zedbydade/goRailsYourself
 
 go 1.15
 
