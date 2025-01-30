@@ -63,6 +63,14 @@ func (crypt *MessageVerifier) Verify(msg string, target interface{}) error {
 	decodedData, _ := base64.StdEncoding.Strict().DecodeString(data)
   decodedString := "\"" + string(decodedData) + "\""
 	err = crypt.Serializer.Unserialize(string(decodedString), target)
+
+  if err != nil {
+    err = crypt.Serializer.Unserialize(string(decodedData), target)
+    if err != nil {
+      return fmt.Errorf("failed to unserialize both quoted and raw data: %w", err)
+    }
+  }
+
 	return err
 }
 
